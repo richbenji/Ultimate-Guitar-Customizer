@@ -13,11 +13,108 @@
 
 ## GitHub & GitKraken
 
+### Création du dépôt local
+
+Pour mettre ton projet GuitarBuilder sur GitHub en utilisant GitKraken, suis ces étapes :
+
+1. **Créer un nouveau dépôt sur GitHub** :
+   - Connecte-toi à ton compte GitHub.
+   - Clique sur le bouton "+" en haut à droite et sélectionne "New repository".
+   - Donne un nom à ton dépôt (par exemple, `GuitarBuilder`).
+   - Choisis si tu veux le rendre public ou privé, puis clique sur "Create repository".
+2. **Dans GitKraken** :
+   - Dans la page où il est écrit "How do you want to get a strat ?", sélectionne "Clone a repo" ou "Initialize a new repo" selon si tu veux cloner un dépôt existant ou créer un nouveau dépôt pour ton projet.
+   - Si tu choisis "Initialize a new repo", sélectionne le dossier de ton projet `GuitarBuilder`.
+3. **Ajouter des fichiers à ton dépôt** :
+   - Une fois le dépôt créé ou initialisé, fais glisser les fichiers de ton projet dans la fenêtre de GitKraken ou utilise le bouton "+" pour les ajouter au suivi.
+4. **Faire un commit** :
+   - Dans la section "Unstaged Files", sélectionne les fichiers que tu veux ajouter.
+   - Écris un message de commit (par exemple, "Initial commit") et clique sur le bouton "Commit changes".
+5. **Pousser les modifications vers GitHub** :
+   - Clique sur le bouton "Push" pour envoyer tes commits vers le dépôt GitHub que tu viens de créer.
+   - Si tu as créé le dépôt sur GitHub, assure-toi de le lier à ton dépôt local en utilisant l'URL du dépôt (tu peux le faire dans les paramètres de ton dépôt dans GitKraken).
+
 ![GitKraken1](/media/richard/PROGRAMMATION/Projets/guitarBuilder/UltimateGuitarCustomizer/dev-notebook/GitKraken1.png)
 
 ![GitKraken2](/media/richard/PROGRAMMATION/Projets/guitarBuilder/UltimateGuitarCustomizer/dev-notebook/GitKraken2.png)
 
 > Note : si le projet existe déjà, il faut pointer vers le dossier parent dans "Initialize in" et spécifier le nom du dossier dans "Name". GitKraken créera alors un dossier `.git`dans le répertoire déjà existant.
+
+### Étapes pour lier ton dépôt local à GitHub
+
+1. **Obtenir l'URL de ton dépôt GitHub** :
+   - Accède à ton dépôt sur GitHub.
+   - Copie l'URL du dépôt. Elle devrait ressembler à quelque chose comme `https://github.com/ton-utilisateur/GuitarBuilder.git`.
+2. **Configurer le dépôt local avec l'URL de GitHub** :
+   - Ouvre GitKraken et navigue vers ton dépôt local.
+   - Si tu es dans GitKraken, il te suffit de cliquer sur le bouton de configuration du dépôt (l'icône en forme de crayon ou d'engrenage en haut à droite).
+   - Dans les paramètres du dépôt, cherche la section "Remote" ou "Remotes".
+   - Ajoute une nouvelle remote en cliquant sur le bouton "Add Remote" et entre les détails suivants :
+     - **Nom** : par convention, on l'appelle `origin`.
+     - **URL** : colle l'URL de ton dépôt GitHub que tu as copiée précédemment.
+3. **Vérifier que la liaison a fonctionné** :
+   - Dans GitKraken, tu devrais voir maintenant la remote `origin` listée dans les paramètres de ton dépôt.
+4. **Pousser tes modifications vers GitHub** :
+   - Une fois que tu as ajouté tes fichiers, fait des commits, et que tu es prêt à envoyer ton code vers GitHub, clique sur le bouton "Push".
+   - Choisis la branche (généralement `main` ou `master`) et confirme que tu souhaites envoyer tes modifications.
+
+![GitKraken3](/media/richard/PROGRAMMATION/Projets/guitarBuilder/UltimateGuitarCustomizer/dev-notebook/GitKraken3.png)
+
+Résumé :
+
+- Tu as un dépôt local pour travailler sur ton code.
+- Tu as créé un dépôt sur GitHub pour stocker ton code en ligne.
+- En ajoutant l'URL de GitHub comme remote dans ton dépôt local, tu peux facilement synchroniser les modifications entre les deux.
+
+### Le fichier .gitignore
+
+Lorsque tu choisis un template pour ton fichier `.gitignore`, cela dépend du type de projet que tu développes et des fichiers que tu souhaites ignorer. Voici quelques suggestions en fonction de ton projet `GuitarBuilder` :
+
+- **Python** : Puisque ton projet est en Python, tu devrais inclure les règles spécifiques à Python. Par exemple :
+  - Ignorer les fichiers `.pyc` (fichiers de bytecode).
+  - Ignorer le dossier `__pycache__`.
+  - Ignorer les fichiers de l'environnement virtuel (souvent nommé `venv` ou `env`).
+
+- **Environnements Virtuels** : Si tu utilises un environnement virtuel (comme c'est le cas avec ton dossier `venv`), tu devrais également ignorer ce dossier pour éviter d'inclure les dépendances de l'environnement virtuel dans ton dépôt.
+- **Fichiers Temporaire ou Cache** : Si tu as des fichiers temporaires ou des caches (comme ceux dans le dossier `scratches` que tu souhaites ignorer), il serait utile de les ajouter.
+- Exemples de contenu pour `.gitignore` :
+
+Voici un exemple de contenu pour ton fichier `.gitignore` :
+
+```bash
+# Ignorer l'environnement virtuel
+venv/
+
+# Ignorer les fichiers compilés Python
+*.pyc
+__pycache__/
+
+# Ignorer les fichiers de configuration IDE (comme PyCharm)
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Ignorer d'autres fichiers temporaires
+scratches/
+```
+
+### Les licences
+
+Le choix d'une licence pour ton projet dépend de la manière dont tu souhaites que les autres interagissent avec ton code. Voici quelques options courantes avec leurs caractéristiques :
+
+1. **MIT License** :
+   - **Simplicité et permissivité** : Permet à quiconque d'utiliser, modifier et distribuer le code, tant qu'ils incluent la licence d'origine.
+   - **Idéal pour** : Les projets que tu veux rendre largement accessibles.
+2. **GNU General Public License (GPL)** :
+   - **Copyleft** : Permet d'utiliser, modifier et distribuer le code, mais exige que toute œuvre dérivée soit également sous la même licence.
+   - **Idéal pour** : Projets où tu souhaites que les modifications restent libres.
+3. **Apache License 2.0** :
+   - **Permissive avec protections** : Permet d'utiliser, modifier et distribuer le code, tout en offrant une protection contre les brevets.
+   - **Idéal pour** : Projets qui peuvent être utilisés dans des contextes commerciaux.
+4. **Creative Commons** (pour des projets non logiciels) :
+   - Il existe plusieurs types de licences Creative Commons, qui permettent de contrôler comment ton contenu peut être partagé et utilisé.
+5. **Propriétaire** :
+   - Si tu veux garder le contrôle total sur ton code sans permettre à d'autres de l'utiliser ou de le modifier.
 
 ## Initialisation du projet
 

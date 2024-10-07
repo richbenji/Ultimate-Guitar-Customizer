@@ -122,3 +122,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Ignorer les fichiers de configuration IDE (comme PyCharm)
+.idea/
+*.sublime-workspace
+*.sublime-project
