@@ -265,3 +265,5 @@ Ce que contient `dropdown.py` :
 3. Méthodes :
    - **`get_selected_value()`** : Retourne la valeur actuellement sélectionnée dans le menu déroulant.
    - **`reset()`** : Réinitialise le menu déroulant pour remettre le placeholder (texte par défaut).
+
+### `switch.py`
