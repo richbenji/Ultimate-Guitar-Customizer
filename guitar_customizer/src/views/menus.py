@@ -163,5 +163,8 @@ section_options = {
         ("Knobs", []),
         ("Strings", []),
         ("Electronics cavity cover", [])
+    ],
+    "Export/Load": [
+        ("Save", ["test"])
     ]
 }

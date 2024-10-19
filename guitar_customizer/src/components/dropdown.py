@@ -20,3 +20,4 @@ class Dropdown(ctk.CTkComboBox):
     def reset(self):
         """Réinitialise le dropdown en affichant le placeholder."""
         self.set("Select an option")
+
