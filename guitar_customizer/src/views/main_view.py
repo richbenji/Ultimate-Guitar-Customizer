@@ -37,7 +37,6 @@ class GuitarCustomizerApp:
         self.tabview = None
         self.spacing = 0.005
 
-
         # Créer la mise en page
         self.create_layout()
 

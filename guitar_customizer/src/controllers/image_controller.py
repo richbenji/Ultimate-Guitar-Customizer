@@ -1,24 +1,29 @@
-from PIL import Image, ImageTk
+
+from PIL import Image, ImageTk, UnidentifiedImageError
 from pathlib import Path
 
-def load_image(image_name, image_folder="assets/body_shape"):
+def load_image(image_name, image_folder="assets/body_shape/"):
     """
     Charger une image depuis le dossier assets à sa taille d'origine.
     :param image_name: Nom du fichier image (ex: stratocaster.png).
     :param image_folder: Dossier où se trouve l'image.
     :return: Image PIL à utiliser pour le redimensionnement.
     """
-    # Chemin de l'image
-    image_path = Path(image_folder) / image_name
+
+    # Construire un chemin absolu en partant du dossier racine
+    base_path = Path(__file__).resolve().parent.parent.parent  # Chemin vers le dossier racine
+    image_path = base_path / image_folder / image_name
+
     if not image_path.exists():
         print(f"Erreur : l'image {image_name} n'a pas été trouvée dans {image_folder}.")
         return None
-
-    # Charger l'image avec PIL (sans redimensionner)
-    image = Image.open(image_path)
-
-    # Retourner l'image PIL (sans conversion en ImageTk.PhotoImage ici)
-    return image
+    try:
+        # Charger l'image
+        image = Image.open(image_path)
+        return image
+    except UnidentifiedImageError:
+        print(f"Erreur : le fichier {image_name} n'est pas une image valide.")
+        return None
 
 def resize_image(image, frame_width, frame_height):
     """
