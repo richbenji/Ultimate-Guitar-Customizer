@@ -142,7 +142,7 @@ class GuitarCustomizerApp:
         # Utiliser les clés de section_options pour créer dynamiquement les onglets
         for section_name in section_options.keys():
             tab = self.tabview.add(section_name)  # Crée un onglet pour chaque section
-            add_dropdowns_to_tab(tab, section_name)  # Ajoute les dropdowns dans l'onglet correspondant
+            add_dropdowns_to_tab(tab, section_name, self.right_frame)  # Ajoute les dropdowns dans l'onglet correspondant
 
     def add_mode_switch(self, parent):
         """
