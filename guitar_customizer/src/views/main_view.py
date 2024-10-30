@@ -54,7 +54,7 @@ class GuitarCustomizerApp:
         self.title_label.place(relx=0.5, rely=0.5, anchor='center')
 
         # Frame droite pour les aperçus (occupe 1/4 de la largeur)
-        self.right_frame = ctk.CTkFrame(self.root, corner_radius=10)
+        self.right_frame = ctk.CTkScrollableFrame(self.root, corner_radius=10)
         self.right_frame.place(relx=3 / 4, rely=1 / 13, relwidth=1 / 4 - self.spacing,
                                relheight=12 / 13 - self.spacing)
 
