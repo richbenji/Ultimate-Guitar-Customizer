@@ -2,14 +2,15 @@ from pathlib import Path
 import customtkinter as ctk
 from src.components.switch import ModeSwitch
 from src.controllers.image_controller import load_image, resize_image
-from src.controllers.menus_controller import add_dropdowns_to_tab
-from src.views.menus import section_options
+from src.controllers.menus_controller import add_dropdowns_to_tab, section_options
 from src.controllers.mode_controller import toggle_mode
+
+# TODO : résoudre le scrollbar avec le touchpad
 
 
 class GuitarCustomizerApp:
-    def __init__(self, root):
-        self.root = root
+    def __init__(self, main_window):
+        self.root = main_window
         self.root.title("Ultimate Guitar Customizer")
 
         # Calculer et appliquer la taille de la fenêtre selon le format de l'écran de l'utilisateur
@@ -24,7 +25,7 @@ class GuitarCustomizerApp:
         # Charger la police personnalisée
         base_path = Path(__file__).resolve().parent.parent.parent  # Remonte de 3 niveaux pour atteindre guitar_customizer
         font_path = base_path / "fonts" / "MetalMania-Regular.ttf"
-        ctk.FontManager.load_font(font_path)
+        ctk.FontManager.load_font(str(font_path))
         self.custom_font = ctk.CTkFont(family="MetalMania", size=38)
 
         # Initialisation des attributs d'instance
@@ -133,16 +134,21 @@ class GuitarCustomizerApp:
         rear_button.pack(side='left', pady=0)
 
     def create_tabview(self):
-        # Créer un CTkTabview dans le panneau du bas pour les options de guitare
-        self.tabview = ctk.CTkTabview(self.root, corner_radius=10)
-        self.tabview.place(relx=self.spacing, rely=8 / 13,
-                           relwidth=3 / 4 - 2 * self.spacing,
-                           relheight=5 / 13 - self.spacing)  # Ajustez la largeur et la hauteur pour tenir compte de l'espacement
+        # Créer une CTkScrollableFrame pour contenir le tabview
+        scrollable_frame = ctk.CTkScrollableFrame(self.root, corner_radius=10)
+        scrollable_frame.place(relx=self.spacing, rely=8 / 13 + self.spacing,
+                               relwidth=3 / 4 - 2 * self.spacing,
+                               relheight=5 / 13 - 2 * self.spacing)
+
+        # Créer un CTkTabview dans la scrollable_frame pour les options de guitare
+        self.tabview = ctk.CTkTabview(scrollable_frame, corner_radius=10)
+        self.tabview.pack(fill='both', expand=True)
 
         # Utiliser les clés de section_options pour créer dynamiquement les onglets
         for section_name in section_options.keys():
             tab = self.tabview.add(section_name)  # Crée un onglet pour chaque section
-            add_dropdowns_to_tab(tab, section_name, self.right_frame)  # Ajoute les dropdowns dans l'onglet correspondant
+            add_dropdowns_to_tab(tab, section_name,
+                                 self.right_frame)  # Ajoute les dropdowns dans l'onglet correspondant
 
     def add_mode_switch(self, parent):
         """

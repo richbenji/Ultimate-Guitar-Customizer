@@ -1,4 +1,3 @@
-
 from PIL import Image, ImageTk, UnidentifiedImageError
 from pathlib import Path
 

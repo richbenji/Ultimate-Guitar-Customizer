@@ -1,9 +1,13 @@
 import customtkinter as ctk
-from src.views.menus import section_options
+from src.views.menus import GuitarOptions
 
-def add_dropdowns_to_tab(tab, section_name, right_frame, columns=3):
+# Obtenir toutes les options de sections à partir de GuitarOptions
+section_options = GuitarOptions.get_all_section_options()
+
+def add_dropdowns_to_tab(tab, section_name, right_frame, placeholder="...", columns=3):
     """
     Ajoute un bouton pour chaque option, suivi d'un ComboBox pour les options disponibles, alignés sur 3 colonnes.
+    :param placeholder: texte affiché par défaut.
     :param tab: Onglet où ajouter les boutons et ComboBox.
     :param section_name: Nom de la section (ex: General, Body).
     :param right_frame: Frame pour afficher les options dynamiques sous forme de boutons.
@@ -25,6 +29,7 @@ def add_dropdowns_to_tab(tab, section_name, right_frame, columns=3):
 
         # Crée un ComboBox à côté du bouton pour afficher les options disponibles
         option_combobox = ctk.CTkComboBox(tab, values=dropdown_values)
+        option_combobox.set(placeholder)
         option_combobox.grid(row=row, column=col * 2 + 1, padx=10, pady=5, sticky="ew")
 
         # Configure la colonne de ComboBox pour qu'elle s'étende
