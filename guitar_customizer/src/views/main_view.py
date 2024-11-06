@@ -2,8 +2,9 @@ from pathlib import Path
 import customtkinter as ctk
 from src.components.switch import ModeSwitch
 from src.controllers.image_controller import load_image, resize_image
-from src.controllers.menus_controller import add_dropdowns_to_tab, section_options
+from src.controllers.menus_controller import add_dropdowns_to_tab
 from src.controllers.mode_controller import toggle_mode
+from src.views.menus import GuitarOptions
 
 # TODO : résoudre le scrollbar avec le touchpad
 
@@ -145,6 +146,7 @@ class GuitarCustomizerApp:
         self.tabview.pack(fill='both', expand=True)
 
         # Utiliser les clés de section_options pour créer dynamiquement les onglets
+        section_options = GuitarOptions.get_section_options()
         for section_name in section_options.keys():
             tab = self.tabview.add(section_name)  # Crée un onglet pour chaque section
             add_dropdowns_to_tab(tab, section_name,

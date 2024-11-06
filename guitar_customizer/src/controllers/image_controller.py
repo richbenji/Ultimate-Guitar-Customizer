@@ -1,5 +1,6 @@
-from PIL import Image, ImageTk, UnidentifiedImageError
+from PIL import Image, UnidentifiedImageError
 from pathlib import Path
+from customtkinter import CTkImage
 
 def load_image(image_name, image_folder="assets/body_shape/"):
     """
@@ -24,13 +25,14 @@ def load_image(image_name, image_folder="assets/body_shape/"):
         print(f"Erreur : le fichier {image_name} n'est pas une image valide.")
         return None
 
+
 def resize_image(image, frame_width, frame_height):
     """
     Redimensionner l'image en fonction de la taille de la frame tout en conservant les proportions.
     :param image: Image PIL à redimensionner.
     :param frame_width: Largeur de la frame.
     :param frame_height: Hauteur de la frame.
-    :return: ImageTk.PhotoImage redimensionnée.
+    :return: CTkImage redimensionnée.
     """
     # Obtenir les dimensions de l'image d'origine
     original_width, original_height = image.size
@@ -49,5 +51,5 @@ def resize_image(image, frame_width, frame_height):
     # Redimensionner l'image tout en préservant le rapport d'aspect
     resized_image = image.resize((new_width, new_height), Image.LANCZOS)
 
-    # Convertir l'image redimensionnée en PhotoImage compatible avec Tkinter
-    return ImageTk.PhotoImage(resized_image)
+    # Convertir l'image redimensionnée en CTkImage compatible avec CustomTkinter
+    return CTkImage(resized_image, size=(new_width, new_height))

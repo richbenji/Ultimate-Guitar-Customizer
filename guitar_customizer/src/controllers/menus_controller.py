@@ -1,9 +1,6 @@
 import customtkinter as ctk
 from src.views.menus import GuitarOptions
 
-# Obtenir toutes les options de sections à partir de GuitarOptions
-section_options = GuitarOptions.get_all_section_options()
-
 def add_dropdowns_to_tab(tab, section_name, right_frame, placeholder="...", columns=3):
     """
     Ajoute un bouton pour chaque option, suivi d'un ComboBox pour les options disponibles, alignés sur 3 colonnes.
@@ -14,6 +11,8 @@ def add_dropdowns_to_tab(tab, section_name, right_frame, placeholder="...", colu
     :param columns: Nombre de colonnes d'options dans la grille (par défaut 3 pour un alignement sur 3 colonnes).
     """
     # Récupère les options pour la section
+    # Appel de GuitarOptions.get_section_options() pour récupérer les options de section
+    section_options = GuitarOptions.get_section_options()
     options = section_options.get(section_name, [])
     row = 0
     col = 0

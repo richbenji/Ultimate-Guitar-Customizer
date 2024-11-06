@@ -154,3 +154,8 @@ class GuitarOptions:
             "Hardware": cls.get_hardware_options(),
             "Export/Load": cls.get_export_load_options()
         }
+
+    @classmethod
+    def get_section_options(cls):
+        """Renvoie les options de section sous forme de dictionnaire."""
+        return cls.get_all_section_options()
