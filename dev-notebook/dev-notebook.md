@@ -198,6 +198,16 @@ pip install -r requirements.txt
 
 ## Développement de l'interface utilisateur avec `Tkinter` et `customtkinter`
 
+### Installation de Tkinter
+
+Installer `tkinter`:
+
+```bash
+sudo apt install python3-tk
+```
+
+Sur Manjaro, il faut chercher le package `tk`dans Pamac.
+
 ### Installation de `customtkinter`
 
 Dans ce projet, `tkinter` et `customtkinter`seront utilisés pour gérer l'interface graphique. Voici un aperçu de comment nous allons structurer la fenêtre avec les trois panneaux.
