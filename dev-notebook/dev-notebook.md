@@ -23,7 +23,7 @@ Pour mettre ton projet GuitarBuilder sur GitHub en utilisant GitKraken, suis ces
    - Donne un nom à ton dépôt (par exemple, `GuitarBuilder`).
    - Choisis si tu veux le rendre public ou privé, puis clique sur "Create repository".
 2. **Dans GitKraken** :
-   - Dans la page où il est écrit "How do you want to get a strat ?", sélectionne "Clone a repo" ou "Initialize a new repo" selon si tu veux cloner un dépôt existant ou créer un nouveau dépôt pour ton projet.
+   - Dans l'onglet "Repository Management", sélectionne "Clone a repo" ou "Initialize a new repo" selon si tu veux cloner un dépôt existant ou créer un nouveau dépôt pour ton projet.
    - Si tu choisis "Initialize a new repo", sélectionne le dossier de ton projet `GuitarBuilder`.
 3. **Ajouter des fichiers à ton dépôt** :
    - Une fois le dépôt créé ou initialisé, fais glisser les fichiers de ton projet dans la fenêtre de GitKraken ou utilise le bouton "+" pour les ajouter au suivi.
