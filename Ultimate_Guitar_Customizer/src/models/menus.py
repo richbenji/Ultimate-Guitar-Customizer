@@ -51,8 +51,8 @@ class GuitarOptions:
     )
 
     GUITAR_BRANDS = (
-        "Fender", "Gibson/Epiphone", "Ibanez", "Dean", "Jackson",
-        "Charvel", "Kramer", "ESP/LTD", "B.C. Rich", "Kiesel",
+        "Fender", "Gibson", "Epiphone", "Ibanez", "Dean", "Jackson",
+        "Charvel", "Kramer", "ESP", "LTD", "B.C. Rich", "Kiesel",
         "Peavey", "Washburn", "Schecter", "Larry Carlton", "PRS",
         "Rickenbacker", "Solar", "Gretsch"
     )
@@ -61,6 +61,11 @@ class GuitarOptions:
         "Seymour Duncan", "DiMarzio", "EMG", "Fluence", "Gibson",
         "Bill Lawrence", "Dean", "Fender", "Filter'Tron", "Schecter",
         "Sustainiac"
+    )
+
+    STRING_BRANDS = (
+        "D'Addario", "D'Angelico", "Danelectro", "Dean Markley", "Dogal",
+        "Elixir", "Ernie Ball", "GHS", "Martin", "Savarez"
     )
 
     BRIDGE_TYPES = (
@@ -72,8 +77,8 @@ class GuitarOptions:
     @classmethod
     def get_general_options(cls):
         return [
-            ("Modèle", ["By brand", "Import"]),
-            ("Marque", cls.GUITAR_BRANDS),
+            ("Model", ["By brand", "Import"]),
+            ("Brand", cls.GUITAR_BRANDS),
             ("Dexterity", ["Right-handed", "Left-handed"]),
             ("Strings", ["6", "7", "8", "9"]),
             ("Scale length", ["25.5\" (648 mm)", "24.75\" (629 mm)"]),
@@ -93,8 +98,8 @@ class GuitarOptions:
     @classmethod
     def get_neck_options(cls):
         return [
-            ("Wood", cls.NECK_WOOD),
-            ("Neck material", ["Maple", "Mahogany", "Rosewood"]),
+            ("Neck wood", cls.NECK_WOOD),
+            #("Neck material", ["Maple", "Mahogany", "Rosewood"]),
             ("Neck construction", ["Set neck", "Bolt on neck", "Neck through"]),
             ("Neck Shape", ["C", "D", "Slim taper D", "U", "Hard V", "Medium V", "Soft V", "Asymmetrical"]),
             ("Neck finish", ["Gloss", "Satin"]),
@@ -117,8 +122,8 @@ class GuitarOptions:
             ("Bridge Pickup", cls.PICKUP_TYPES),
             ("Middle Pickup", cls.PICKUP_TYPES),
             ("Neck Pickup", cls.PICKUP_TYPES),
-            ("Bridge Pickup brand", cls.PICKUP_BRANDS),
-            ("Middle Pickup brand", cls.PICKUP_BRANDS),
+            ("Bridge pickup brand", cls.PICKUP_BRANDS),
+            ("Middle pickup brand", cls.PICKUP_BRANDS),
             ("Neck Pickup brand", cls.PICKUP_BRANDS),
             ("Bobbin colors", []),
             ("Pickup pole pieces", ["Black", "Chrome", "Gold"]),
@@ -133,8 +138,9 @@ class GuitarOptions:
         return [
             ("Bridge", cls.BRIDGE_TYPES),
             ("Hardware color", ["Black", "Chrome", "Gold"]),
-            ("Knobs", []),
-            ("Strings", []),
+            ("Knobs", ["Bell hat", "Speed", "Domed"]),
+            ("Knobs color", ["Amber", "Black", "Gold", "White"]),
+            ("Strings", cls.STRING_BRANDS),
             ("Electronics cavity cover", [])
         ]
 
