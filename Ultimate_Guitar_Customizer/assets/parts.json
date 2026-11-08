@@ -1,0 +1,22 @@
+{
+  "body": {
+    "stratocaster": {
+      "image": "body_shape/stratocaster.png",
+      "anchors": {"neck_joint": [512, 880]},
+      "neck_construction": ["bolt_on"]
+    }
+  },
+  "neck": {
+    "strat_c_shape": {
+      "image": "neck_shape/strat_c.png",
+      "anchors": {"body_joint": [90, 1500], "head_joint": [90, 40]},
+      "scale_length_mm": 648
+    }
+  },
+  "headstock": {
+    "strat_6_inline": {
+      "image": "headstock/strat.png",
+      "anchors": {"neck_joint": [110, 600]}
+    }
+  }
+}

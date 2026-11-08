@@ -1,7 +1,13 @@
+from pathlib import Path
+
 from PySide6.QtWidgets import QWidget, QGridLayout, QLabel
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Qt, Signal
-import os
+
+from src.paths import slugify
+
+STYLE_NORMAL = "border: 1px solid #4a5568; padding: 5px;"
+STYLE_SELECTED = "border: 2px solid #2980b9; padding: 5px;"
 
 
 class PreviewGrid(QWidget):
@@ -10,101 +16,62 @@ class PreviewGrid(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.layout = QGridLayout()
-        self.layout.setSpacing(10)
-        self.setLayout(self.layout)
-
-        self.items = []
+        self.grid_layout = QGridLayout()   # ne pas appeler "layout" : ça écrase QWidget.layout()
+        self.grid_layout.setSpacing(10)
+        self.setLayout(self.grid_layout)
 
         self.selected_label = None
 
     def clear(self):
-        for i in reversed(range(self.layout.count())):
-            widget = self.layout.itemAt(i).widget()
+        self.selected_label = None
+        while self.grid_layout.count():
+            item = self.grid_layout.takeAt(0)
+            widget = item.widget()
             if widget:
-                widget.setParent(None)
+                widget.deleteLater()
 
     def load_images(self, folder_path):
         self.clear()
 
-        self.selected_label = None
+        folder = Path(folder_path)
+        if not folder.is_dir():
+            return
 
-        files = [f for f in os.listdir(folder_path)
-                 if f.endswith((".png", ".svg"))]
+        files = sorted(f for f in folder.iterdir()
+                       if f.suffix.lower() in (".png", ".svg"))
 
         col_count = max(2, self.width() // 120)
 
-        row = 0
-        col = 0
-
-        for file in files:
-            path = os.path.join(folder_path, file)
-
+        for index, file in enumerate(files):
             label = QLabel()
-            label.file_name = file
+            label.file_name = file.name
 
-            pixmap = QPixmap(path)
-
+            pixmap = QPixmap(str(file))
             label.setPixmap(pixmap.scaled(
-                100, 100,
-                Qt.KeepAspectRatio,
-                Qt.SmoothTransformation
+                100, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation
             ))
-
             label.setAlignment(Qt.AlignCenter)
-            label.setStyleSheet("border: 1px solid #4a5568; padding: 5px;")
+            label.setStyleSheet(STYLE_NORMAL)
+            label.setToolTip(file.stem)
+            label.mousePressEvent = lambda event, lbl=label: self._on_click(lbl)
 
-            # click
-            def on_click(event, lbl=label):
-                # reset ancien sélectionné
-                if self.selected_label:
-                    self.selected_label.setStyleSheet(
-                        "border: 1px solid #4a5568; padding: 5px;"
-                    )
+            self.grid_layout.addWidget(label, index // col_count, index % col_count)
 
-                # nouveau sélectionné
-                lbl.setStyleSheet(
-                    "border: 2px solid #2980b9; padding: 5px;"
-                )
+    def _set_selected(self, label):
+        if self.selected_label:
+            self.selected_label.setStyleSheet(STYLE_NORMAL)
+        label.setStyleSheet(STYLE_SELECTED)
+        self.selected_label = label
 
-                self.selected_label = lbl
-
-                # envoie au controller
-                self.item_clicked.emit(lbl.file_name)
-
-            label.mousePressEvent = on_click
-
-            self.layout.addWidget(label, row, col)
-
-            col += 1
-            if col >= col_count:
-                col = 0
-                row += 1
-
-    def resizeEvent(self, event):
-        # reload pour recalculer colonnes
-        super().resizeEvent(event)
+    def _on_click(self, label):
+        self._set_selected(label)
+        self.item_clicked.emit(label.file_name)
 
     def select_item(self, value):
-        """Sélectionne visuellement un item à partir de son nom"""
-
-        for i in range(self.layout.count()):
-            widget = self.layout.itemAt(i).widget()
-
-            if hasattr(widget, "file_name"):
-                name = widget.file_name.split(".")[0]
-
-                if name == value:
-                    # reset ancien
-                    if self.selected_label:
-                        self.selected_label.setStyleSheet(
-                            "border: 1px solid #4a5568; padding: 5px;"
-                        )
-
-                    # nouveau
-                    widget.setStyleSheet(
-                        "border: 2px solid #2980b9; padding: 5px;"
-                    )
-
-                    self.selected_label = widget
-                    break
+        """Sélectionne visuellement un item à partir de son nom."""
+        target = slugify(value)
+        for i in range(self.grid_layout.count()):
+            widget = self.grid_layout.itemAt(i).widget()
+            if widget and slugify(Path(widget.file_name).stem) == target:
+                self._set_selected(widget)
+                break

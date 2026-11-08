@@ -73,7 +73,10 @@ class GuitarOptions:
         "Vintage vibrato", "Floyd Rose vibrato", "Bigsby vibrato"
     )
 
-    # Méthodes pour chaque section d'options
+    # Convention : les libellés (premier élément de chaque tuple) servent de
+    # clés dans le contrôleur, la config et les sauvegardes. Ils doivent être
+    # uniques dans toute l'application et écrits en "Première lettre majuscule".
+
     @classmethod
     def get_general_options(cls):
         return [
@@ -99,13 +102,12 @@ class GuitarOptions:
     def get_neck_options(cls):
         return [
             ("Neck wood", cls.NECK_WOOD),
-            #("Neck material", ["Maple", "Mahogany", "Rosewood"]),
             ("Neck construction", ["Set neck", "Bolt on neck", "Neck through"]),
-            ("Neck Shape", ["C", "D", "Slim taper D", "U", "Hard V", "Medium V", "Soft V", "Asymmetrical"]),
+            ("Neck shape", ["C", "D", "Slim taper D", "U", "Hard V", "Medium V", "Soft V", "Asymmetrical"]),
             ("Neck finish", ["Gloss", "Satin"]),
             ("Fingerboard material", cls.FINGERBOARD_MATERIAL),
             ("Number of frets", ["21", "22", "24"]),
-            ("Fret size", ["Small", "Vintage medium", "medium", "jumbo", "Super jumbo", "Narrow"]),
+            ("Fret size", ["Small", "Vintage medium", "Medium", "Jumbo", "Super jumbo", "Narrow"]),
             ("Fret material", ["Nickel silver", "Gold", "Stainless steel", "Bronze"]),
             ("Radius", cls.RADIUS),
             ("Inlay shape", ["Dots", "Blocks"]),
@@ -113,24 +115,24 @@ class GuitarOptions:
             ("Nut material", ["Plastic", "Graphite", "Bone", "Synthetic bone", "Brass", "Titanium", "Wood"]),
             ("Headstock shape", ["Match original body"]),
             ("Headstock finish", ["Match body"]),
-            ("Truss rod cover", ["Black", "Cream", "White", "Red tortoiseshell", "White pearloid", "Ebony", "Purpleheart"])
+            ("Truss rod cover", ["Black", "Cream", "White", "Red tortoiseshell", "White pearloid", "Ebony", "Purpleheart"]),
         ]
 
     @classmethod
     def get_electronics_options(cls):
         return [
-            ("Bridge Pickup", cls.PICKUP_TYPES),
-            ("Middle Pickup", cls.PICKUP_TYPES),
-            ("Neck Pickup", cls.PICKUP_TYPES),
+            ("Bridge pickup", cls.PICKUP_TYPES),
+            ("Middle pickup", cls.PICKUP_TYPES),
+            ("Neck pickup", cls.PICKUP_TYPES),
             ("Bridge pickup brand", cls.PICKUP_BRANDS),
             ("Middle pickup brand", cls.PICKUP_BRANDS),
-            ("Neck Pickup brand", cls.PICKUP_BRANDS),
+            ("Neck pickup brand", cls.PICKUP_BRANDS),
             ("Bobbin colors", []),
             ("Pickup pole pieces", ["Black", "Chrome", "Gold"]),
             ("Covers", ["None", "Black", "Chrome", "Gold"]),
             ("Direct mount", ["Yes", "No"]),
             ("Controls", ["Volume + Tone", "2 Volumes + Tone", "2 Volumes + 2 Tones", "Volume", "2 Volumes"]),
-            ("Out of phase pickups", [])
+            ("Out of phase pickups", []),
         ]
 
     @classmethod
@@ -140,14 +142,10 @@ class GuitarOptions:
             ("Hardware color", ["Black", "Chrome", "Gold"]),
             ("Knobs", ["Bell hat", "Speed", "Domed"]),
             ("Knobs color", ["Amber", "Black", "Gold", "White"]),
-            ("Strings", cls.STRING_BRANDS),
-            ("Electronics cavity cover", [])
-        ]
-
-    @classmethod
-    def get_export_load_options(cls):
-        return [
-            ("Save", ["test"])
+            # Renommé : "Strings" existait déjà dans General (nombre de cordes),
+            # et deux libellés identiques s'écrasaient dans self.combos.
+            ("String brand", cls.STRING_BRANDS),
+            ("Electronics cavity cover", []),
         ]
 
     @classmethod
@@ -158,7 +156,6 @@ class GuitarOptions:
             "Neck": cls.get_neck_options(),
             "Electronics": cls.get_electronics_options(),
             "Hardware": cls.get_hardware_options(),
-            "Export/Load": cls.get_export_load_options()
         }
 
     @classmethod

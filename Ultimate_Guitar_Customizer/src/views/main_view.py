@@ -5,6 +5,7 @@ from PySide6.QtGui import QFontDatabase
 from .tabs_view import TabsView
 from .preview_view import PreviewView
 from .image_view import ImageView
+from src.paths import FONTS
 
 
 class MainView(QWidget):
@@ -67,7 +68,7 @@ class MainView(QWidget):
         # ===== LIGNE 1 : TITRE =====
         title_layout = QHBoxLayout()
         title = QLabel("🎸 Ultimate Guitar Customizer")
-        font_id = QFontDatabase.addApplicationFont("fonts/MetalMania-Regular.ttf")
+        font_id = QFontDatabase.addApplicationFont(str(FONTS / "MetalMania-Regular.ttf"))
         if font_id != -1:
             font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
             title.setStyleSheet(f"font-family: '{font_family}'; font-size: 26px;")
